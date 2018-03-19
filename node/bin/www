@@ -1,90 +1,103 @@
 #!/usr/bin/env node
 
+/*jslint node: true */
+/*jslint es6 */
+/*jshint esversion: 6 */
+/*jshint mocha: true */
+/*eslint-env mocha */
+
+'use strict';
+
 /**
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('node:server');
-var http = require('http');
-
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+const App = require('../app');
+const debug = require('debug')('equipment-api:node_server');
+const Http = require('http');
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
+const normalizePort = (val) => {
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+    const port = parseInt(val, 10);
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
 
-  return false;
-}
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+};
 
 /**
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+const onError = (error) => {
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
+    const bind = typeof port === 'string'
+        ? 'Pipe ' + Port
+        : 'Port ' + Port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+};
 
 /**
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
+const onListening = () => {
+
+    const addr = Server.address();
+    const bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+};
+
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+const Port = normalizePort(process.env.PORT || '3000');
+App.set('port', Port);
+
+/**
+ * Create HTTP server.
+ */
+
+const Server = Http.createServer(App);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+Server.listen(Port);
+Server.on('error', onError);
+Server.on('listening', onListening);
+
