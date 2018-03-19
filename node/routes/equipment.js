@@ -1,5 +1,12 @@
+/*jslint node: true */
+/*jslint es6 */
+/*jshint esversion: 6 */
+'use strict';
+
 const Express = require('express');
 const router = Express.Router();
+
+//const debug = require('debug')('equipment-api:equipment_route');
 
 router.get('/', (req, res, next) => {
 
